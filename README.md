@@ -9,7 +9,7 @@ These SQL are based on available ecommerce dataset that has millions of Google A
 4. What are the risks of only using the above two fields?
 
 
-## Classification Models
+## Classification Models
 
 1. Creating a classification model
 2. Evaluating the classification model performance
