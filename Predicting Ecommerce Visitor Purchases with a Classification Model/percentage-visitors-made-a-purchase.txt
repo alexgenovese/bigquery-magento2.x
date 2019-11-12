@@ -1,4 +1,8 @@
-# Out of the total visitors who visited our website, what % made a purchase?
+/*
+Scenario: Your data analyst team exported the Google Analytics logs for an ecommerce website into BigQuery and created a new table of all the raw ecommerce visitor session data for you to explore. Using this data, you'll try to answer a few questions.
+
+Question: Out of the total visitors who visited our website, what % made a purchase?
+*/
 
 #standardSQL
 WITH visitors AS(
