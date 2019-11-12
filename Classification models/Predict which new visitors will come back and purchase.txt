@@ -1,0 +1,14 @@
+/*
+
+	Next you will write a query to predict which new visitors will come back and make a purchase.The prediction query below uses the improved classification model we trained above to predict the probability that a first-time visitor to the Google Merchandise Store will make a purchase in a later visit. The predictions are made on the last 1 month (out of 12 months) of the dataset.
+
+	Your model will now output the predictions it has for those July 2017 ecommerce sessions. You can see three newly added fields:
+
+	predicted_will_buy_on_return_visit: whether the model thinks the visitor will buy later (1 = yes)
+	predicted_will_buy_on_return_visit_probs.label: the binary classifier for yes / no
+	predicted_will_buy_on_return_visit.prob: the confidence the model has in it's prediction (1 = 100%)
+
+	
+
+*/
+
