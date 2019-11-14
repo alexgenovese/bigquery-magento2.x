@@ -1,0 +1,52 @@
+/*
+
+You will now create a machine learning model in BigQuery to predict the price of a cab ride in New York City given the historical dataset of trips and trip data. Predicting the fare before the ride could be very useful for trip planning for both the rider and the taxi agency.
+
+Your team decides to test whether these below fields are good inputs to your fare forecasting model:
+
+Tolls Amount
+Fare Amount
+Hour of Day
+Pick up address
+Drop off address
+Number of passengers
+
+Note a few things about the query:
+
+The main part of the query is at the bottom (SELECT * from taxitrips).
+taxitrips does the bulk of the extraction for the NYC dataset, with the SELECT containing your training features and label.
+The WHERE removes data that you don't want to train on.
+The WHERE also includes a sampling clause to pick up only 1/1000th of the data.
+Define a variable called TRAIN so that you can quickly build an independent EVAL set.
+
+*/
+
+#standardSQL
+WITH params AS (
+    SELECT
+    1 AS TRAIN,
+    2 AS EVAL
+    ),
+
+  daynames AS
+    (SELECT ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'] AS daysofweek),
+
+  taxitrips AS (
+  SELECT
+    (tolls_amount + fare_amount) AS total_fare,
+    daysofweek[ORDINAL(EXTRACT(DAYOFWEEK FROM pickup_datetime))] AS dayofweek,
+    EXTRACT(HOUR FROM pickup_datetime) AS hourofday,
+    pickup_longitude AS pickuplon,
+    pickup_latitude AS pickuplat,
+    dropoff_longitude AS dropofflon,
+    dropoff_latitude AS dropofflat,
+    passenger_count AS passengers
+  FROM
+    `nyc-tlc.yellow.trips`, daynames, params
+  WHERE
+    trip_distance > 0 AND fare_amount > 0
+    AND MOD(ABS(FARM_FINGERPRINT(CAST(pickup_datetime AS STRING))),1000) = params.TRAIN
+  )
+
+  SELECT *
+  FROM taxitrips
